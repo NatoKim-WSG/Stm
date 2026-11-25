@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "ask": [
+      "mcp__whop__call_write_operation"
+    ],
+    "deny": [
+      "mcp__whop__refund_payment",
+      "mcp__whop__update_account",
+      "mcp__whop__create_account",
+      "mcp__whop__create_checkout_configuration",
+      "mcp__whop__create_promo_code",
+      "mcp__whop__activate_promo_code",
+      "mcp__whop__cancel_membership",
+      "mcp__whop__pause_membership",
+      "mcp__whop__submit_dispute_evidence",
+      "mcp__whop__update_dispute",
+      "mcp__whop__accept_resolution_center_case",
+      "mcp__whop__deny_resolution_center_case",
+      "mcp__whop__create_product",
+      "mcp__whop__update_product",
+      "mcp__whop__delete_product",
+      "mcp__whop__send_notification"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__whop__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "for p in \"$CLAUDE_PROJECT_DIR/.venv/Scripts/python.exe\" \"$CLAUDE_PROJECT_DIR/.venv/bin/python\"; do [ -x \"$p\" ] && exec \"$p\" \"$CLAUDE_PROJECT_DIR/.claude/hooks/whop_guard.py\"; done; echo 'Whop guard: project .venv Python not found, so this Whop call is blocked. Create the venv first (see CLAUDE.md).' >&2; exit 2",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
