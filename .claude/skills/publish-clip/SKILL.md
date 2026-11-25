@@ -1,6 +1,6 @@
 ---
 name: publish-clip
-description: Publish an approved clip to YouTube and submit its link to the Whop campaign within the 30-minute window, then log it. Use only after the user has approved that specific clip.
+description: Publish an approved clip to YouTube Shorts and/or TikTok and submit its link to the campaign within the 30-minute window, then log it. Use only after the user has approved that specific clip.
 ---
 
 # Publish a clip
@@ -15,10 +15,18 @@ does not cover another. If in doubt, ask.
   within 30 minutes of going public** — never publish and then wait.
 
 ## Publish (current stage: manual upload)
-The YouTube upload script is not built yet (stage V2). Until it is:
-1. Give the user the clip path and paste-ready title + description from `upload_info.md`.
-2. The user uploads it in YouTube Studio / the YouTube app as a Short, public.
-3. The user pastes back the video URL.
+No upload script yet (stage V2). Until it is built:
+1. Give the user the clip path and paste-ready title + caption from `upload_info.md`.
+2. The user uploads it, public:
+   - **YouTube:** YouTube Studio / the YouTube app, as a Short.
+   - **TikTok:** the TikTok app or tiktok.com/upload. If the caption carries #Ad / #Sponsored,
+     also switch on *Content disclosure → Branded content* (TikTok's own rule for paid promos).
+     Keep comments and likes on.
+3. The user pastes back the post URL.
+
+**Posting one clip on both platforms:** only if the campaign file says cross-posting is
+allowed. Each post is its own submission with its own 30-minute window, so publish and submit
+one platform, then the other — never both at once.
 
 ## Submit to Whop
 - **Content Rewards campaigns** (pay per 1k views) are not in Whop's API: the user submits the
@@ -34,5 +42,6 @@ The YouTube upload script is not built yet (stage V2). Until it is:
 
 ## Log
 Append a row to `tracking/posts.csv`:
-`date,campaign,clip,youtube_url,published_at,submitted_at,status,views,earnings`
+`date,campaign,clip,platform,url,published_at,submitted_at,status,views,earnings`
+(`platform` = youtube / tiktok; one row per post.)
 Use ISO times (local). `status` = submitted / approved / rejected / paid.

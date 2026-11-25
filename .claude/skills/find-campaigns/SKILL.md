@@ -22,7 +22,10 @@ description: Research Whop Content Rewards campaigns, read their rules, rank the
 3. **Rank** the candidates in a table, best first, scoring:
    - Pay per 1,000 views, and max payout per clip
    - Budget remaining vs. total (a nearly spent budget may close before views pay out)
-   - YouTube Shorts accepted? (required — skip campaigns that exclude it)
+   - YouTube Shorts or TikTok accepted? (required — skip campaigns that take neither; note
+     whether cross-posting one clip to both is allowed)
+   - Account requirements: follower minimum, dedicated/niche page, audience country share
+     (the user's channels started at 0 followers in Nov 2026)
    - Source footage: provided by the campaign or clearly permitted (required)
    - How clippable the content is (talking, reactions, stories > slow tutorials)
    - Minimum views, deadlines, audience/region requirements, AI-editing rules

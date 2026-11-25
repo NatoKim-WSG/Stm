@@ -1,8 +1,8 @@
-# Stm — AI clipping pipeline (Whop Content Rewards → YouTube Shorts)
+# Stm — AI clipping pipeline (Whop Content Rewards → YouTube Shorts + TikTok)
 
 Goal: earn from Whop Content Rewards campaigns by turning permitted long-form videos into
-3–5 vertical Shorts per day, posting them on the user's YouTube channel, and submitting the
-links to the campaign. Built in stages; each stage stays human-approved until it proves reliable.
+3–5 vertical clips per day, posting them on the user's YouTube channel and TikTok account
+(TikTok added 2026-11-25), and submitting the links to the campaign. Built in stages; each stage stays human-approved until it proves reliable.
 
 ## Hard rules (never break these)
 
@@ -19,7 +19,8 @@ links to the campaign. Built in stages; each stage stays human-approved until it
    Never publish a clip unless submission can happen right after. Log every post in
    `tracking/posts.csv` with the publish time.
 5. **Protect the channel:** every clip must be meaningfully edited (captions, hook, reframing);
-   no near-duplicate uploads; stay at roughly 3–5 Shorts per day; no misleading titles.
+   no near-duplicate uploads; stay at roughly 3–5 posts per day per platform; no misleading
+   titles. Post the same clip to both YouTube and TikTok only when the campaign allows it.
 6. **Secrets stay local:** OAuth client files and tokens (`client_secret*.json`, `token*.json`,
    `.env`) are never printed, committed or sent anywhere.
 7. Disk is tight (~23 GB free on C:). Delete source videos and `work/` intermediates once a
@@ -39,7 +40,7 @@ links to the campaign. Built in stages; each stage stays human-approved until it
 | 2. Get permitted source video | (manual or download) | `sources/<name>.mp4` |
 | 3. Transcribe, pick moments, render | `/make-clips` | `output/<name>/clipNN.mp4` + `upload_info.md` |
 | 4. User reviews clips | — | approval per clip |
-| 5. Publish to YouTube + submit to Whop within 30 min | `/publish-clip` | row in `tracking/posts.csv` |
+| 5. Publish to YouTube / TikTok + submit within 30 min | `/publish-clip` | row in `tracking/posts.csv` |
 
 ## Build stages
 
@@ -47,6 +48,8 @@ links to the campaign. Built in stages; each stage stays human-approved until it
 - [ ] V2 — YouTube upload script (Data API, OAuth). First test one upload: unverified Google
       Cloud projects may lock uploads to private until Google's API audit is passed. Default
       quota is roughly 6 uploads/day — enough for 3–5 Shorts.
+      TikTok: its Content Posting API keeps posts from unaudited apps private, so TikTok
+      uploads stay manual (the user in the app, or Claude in Chrome with the user watching).
 - [ ] V3 — Whop submission. **Checked 2026-11-25: Content Rewards (pay-per-1k-views) campaigns
       are NOT in Whop's public API** — none of the MCP's 472 operations cover them; the docs show
       them only as an app inside a whop. Content Rewards is now run by Content Rewards Inc. at
@@ -67,15 +70,63 @@ links to the campaign. Built in stages; each stage stays human-approved until it
 - 2026-11-25: V1 tested. Whop MCP connected on the laptop with the money guard (hard rule 8).
   Found that Content Rewards lives at contentrewards.com; user has an account there.
   Research so far: `campaigns/shortlist-2026-11-25.md`.
-- **Next:** connect Claude in Chrome (`/chrome`), open the shortlisted campaigns, ask the user
-  before each **Join**, read the unlocked rules/files, write `campaigns/<slug>.md` for the best
-  2–3, then the user picks one. Still need the user's country (some campaigns pay by region).
+- 2026-11-25 (later): Claude in Chrome connected. Joined (user said to) It's Personal, SEGA,
+  Eneba BroPacks, Michael Sartain, Bobby VanRiper. User's YouTube channel: created 2022-05-07,
+  **0 subscribers**; user wants gaming / popular creators / streamers that get views easily.
+  Ranked in `campaigns/shortlist-2026-11-25.md`; files written for the top two:
+  `campaigns/sega-steam-black-friday.md` (pick) and `campaigns/bobby-vanriper-gta6.md` (backup).
+  Rule docs on Google Docs read best via `.../mobilebasic`.
+- 2026-11-25 (later): user added **TikTok** (creating a new account themselves). Re-checked
+  TikTok-only and gaming campaigns; joined SkiiMaskTimmy (60% Tier 1, harder than its card).
+  SEGA stays the pick: same $5/1K on TikTok.
+- User is in the **Philippines** (UTC+8, 13 h ahead of US Eastern). Most good campaigns want
+  US / Tier 1 viewers. Plan: YouTube Shorts in English, published at US prime time
+  (11 AM–2 PM or 5–9 PM ET = 12–3 AM or 6–10 AM PH time); the user must be awake to submit
+  within 30 min. TikTok shows a new account's posts mostly in its own country, so posting
+  time alone won't reach US viewers there — see `campaigns/shortlist-2026-11-25.md`.
+- User chose **streamers & gaming** over SEGA (worried ad clips won't be watched). Joined and
+  wrote files: `jasontheween-sourjacks.md` (TikTok, $4/1K, no country rule),
+  `expedia-ishowspeed.md` and `sypherpk.md` (YouTube OK, 10K views/video, 50% English-speaking).
+  Reach "pool" campaigns (Lacy etc.) need 1M total views to share the pool — skip.
+- 2026-11-25 (evening): user said go → downloaded Sour Jacks Ep. 501 (campaign Drive) and the
+  last 20 min of IShowSpeed's 2026-11-06 stream (yt-dlp, approved window 2:46:29–end). Editor
+  upgraded on the user's request: hooks with accent word + pop-in, punch-in zooms, colour grade,
+  FFmpeg-generated SFX, colour emoji pop-ups (Pillow + Segoe UI Emoji), jump-cut `segments`,
+  `box` reframe for streams. Clips awaiting the user's per-clip approval:
+  `output/sourjacks-ep501/clip01-02.mp4` (TikTok, needs the user's new TikTok account) and
+  `output/speed-expedia-20261106/clip01-02.mp4` (YouTube Shorts, post at US prime time).
+- User's existing YouTube channel is **not** streamer-niche (Expedia/Reach requires streamer or
+  travel accounts). Plan: user creates a dedicated streamer-clips channel (brand channel under
+  the same Google account) + a TikTok with the same name, and connects both in Whop → Settings →
+  Connected Accounts. Post Speed/Sypher/Bobby clips only there; keep SEGA-type promos off it.
+  The V2 upload script must authorise that brand channel, not the personal one.
+- **Moving to the PC (2026-11-25):** clip plans and hand-fixed transcripts are in git
+  (`work/<name>/clips.json`, `transcript.json`); videos are not. To get the 4 clips back on the
+  PC, either copy the laptop's `output\` folder by USB/Drive, or rebuild them:
+  1. `curl -L -o sources\sourjacks-ep501.mp4 "https://drive.usercontent.google.com/download?id=169YOcmn_M4Mt1YnoyawY1QzEkdeQO2aZ&export=download&confirm=t"`
+     (285 MB, campaign's Drive folder "New JasonWeen Content", file "Ep. 501.mp4")
+  2. `.venv\Scripts\yt-dlp --js-runtimes node --download-sections "*2:33:00-inf" --force-keyframes-at-cuts -f "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[height<=1080]" --merge-output-format mp4 -o "sources\speed-expedia-20261106.%(ext)s" https://www.youtube.com/watch?v=Kyv61l2vF6M`
+     (≈386 MB). Check `ffprobe` duration ≈ 1210.9 s — clip times assume the file starts at
+     stream 2:33:00 exactly; if it differs, shift the `segments` by the difference.
+  3. `.venv\Scripts\python -m clipper.render work\sourjacks-ep501\clips.json` and the same for
+     `work\speed-expedia-20261106\clips.json` (no re-transcribing needed).
+- **Next:** user creates the streamer-clips YouTube channel + TikTok and connects them in Whop;
+  user reviews the 4 clips and approves per clip; Speed clips post at US prime time with the
+  user awake to submit within 30 min (`/publish-clip`). Then more Sour Jacks episodes (Ep. 502,
+  503, 301… in the same Drive folder) and SypherPK VODs. Optional: Expedia logo from the
+  campaign's Brand Assets folder (ask before downloading). SEGA is parked (promo content would
+  dilute the streamer channel).
 
 ## Working with the user
 
 - The user leaves tool choices to Claude: recommend one option and proceed, explaining briefly;
   don't survey alternatives.
 - Build in stages; prepare everything and stop at the approval step (hard rule 1).
+- User is in the Philippines (UTC+8); new channels (0 followers). Prefers campaigns that get
+  views easily: streamers, popular creators, gaming. Wants clips heavily edited — hooks, sound
+  effects, zooms, colour, emoji pop-ups (see the make-clips skill).
+- Explain campaign rules in plain words and quote the exact wording when it matters (e.g.
+  "streamer niche" = what the channel posts, not that the user must stream).
 - Keep this file and the skills updated whenever a rule, flow or stage changes — they are the
   project's memory and move with the repo (Claude's per-machine memory does not).
 
@@ -112,6 +163,11 @@ LLM picker needs a separate API key). Borrow its ideas above instead; revisit if
 .venv\Scripts\python -m clipper.render work\<name>\clips.json [--only 01 03]
 ```
 
+- Getting sources (only footage the campaign permits, and only after the user OKs the download):
+  - Google Drive file (public link): find the file id (Drive page → `[data-id]`), then
+    `curl -L -o sources\<name>.mp4 "https://drive.usercontent.google.com/download?id=<id>&export=download&confirm=t"`
+  - YouTube / Twitch VOD section:
+    `.venv\Scripts\yt-dlp --js-runtimes node --download-sections "*H:MM:SS-inf" -f "bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[height<=1080]" --merge-output-format mp4 -o "sources\<name>.%(ext)s" <url>`
 - `--device auto` (default) uses an NVIDIA GPU via CUDA when one is found, else CPU. The
   original laptop has an AMD integrated GPU (no CUDA), so there `small` is the default and
   `medium` only for short sources. On a CUDA GPU, `medium` or `large-v3` is fine.
@@ -122,10 +178,13 @@ LLM picker needs a separate API key). Borrow its ideas above instead; revisit if
 ## Layout
 
 ```
-clipper/        transcribe.py, render.py, captions.py (caption style lives in DEFAULT_STYLE)
+clipper/        transcribe.py, render.py, captions.py (caption style lives in DEFAULT_STYLE),
+                effects.py (zooms, colour grade, emoji pop-ups, generated SFX)
 campaigns/      one .md per campaign, from _template.md
 sources/        source videos (git-ignored, delete after use)
-work/<name>/    transcript.json, transcript.txt, clips.json, per-clip subtitle files
+work/<name>/    transcript.json, transcript.txt, clips.json (these three are in git so another
+                PC can re-render), per-clip subtitle files and frames (ignored);
+                work/_assets/ = generated SFX and emoji PNGs (ignored, rebuilt on demand)
 output/<name>/  finished clipNN.mp4 + upload_info.md
 tracking/       posts.csv — every published clip and its submission
 .claude/skills/ find-campaigns, make-clips, publish-clip

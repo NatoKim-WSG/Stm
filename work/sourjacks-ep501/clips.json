@@ -1,0 +1,67 @@
+{
+  "source": "sources/sourjacks-ep501.mp4",
+  "campaign": "campaigns/jasontheween-sourjacks.md",
+  "reframe": "crop",
+  "grade": "pop",
+  "style": {"caption_margin_v": 760, "hook_margin_v": 300, "hook_size": 70},
+  "clips": [
+    {
+      "id": "01",
+      "start": "00:01:49.24", "end": "00:02:12.70",
+      "crop_x": 0.5,
+      "hook": "HE WON BY *PURE ACCIDENT*",
+      "zooms": [
+        {"at": 2.0, "dur": 4.3, "scale": 1.15, "x": 0.5, "y": 0.3},
+        {"at": 8.5, "dur": 1.7, "scale": 1.2, "x": 0.5, "y": 0.4},
+        {"at": 14.0, "dur": 3.0, "scale": 1.18, "x": 0.5, "y": 0.35},
+        {"at": 22.2, "dur": 1.3, "scale": 1.2, "x": 0.5, "y": 0.35}
+      ],
+      "sfx": [
+        {"at": 2.2, "type": "riser"},
+        {"at": 8.6, "type": "boom"},
+        {"at": 14.1, "type": "pop"},
+        {"at": 22.9, "type": "ding"}
+      ],
+      "emojis": [
+        {"at": 8.7, "dur": 1.6, "emoji": "🔥"},
+        {"at": 14.2, "dur": 2.6, "emoji": "😭"},
+        {"at": 22.6, "dur": 0.9, "emoji": "😂"}
+      ],
+      "title": "He won Sour Scales by pure accident",
+      "description": "Closest to 27.5 oz of Sour Jacks wins 🔥 Guapo landed 26.4 oz with \"no strategy, no clue\" 😭 Sour Jacks Showdown with Jason The Ween.",
+      "hashtags": ["#SourJacksPartner", "#SourJacks", "#JasonTheWeen", "#gameshow"],
+      "reason": "Reveal + confessional payoff in 23 s: suspense on the number, the win, then 'I won that game by pure accident … but I do like food.' Starts on a scene cut; skips the 0:04-0:37 section that has a third-party TikTok overlay."
+    },
+    {
+      "id": "02",
+      "start": "00:00:43.80", "end": "00:01:31.70",
+      "crop_x": 0.5,
+      "hook": "EYEBALLING *27.5 OZ* OF CANDY",
+      "zooms": [
+        {"at": 6.6, "dur": 1.6, "scale": 1.15, "x": 0.5, "y": 0.55},
+        {"at": 13.3, "dur": 1.3, "scale": 1.2, "x": 0.5, "y": 0.45},
+        {"at": 34.3, "dur": 1.6, "scale": 1.18, "x": 0.5, "y": 0.45},
+        {"at": 41.0, "dur": 1.7, "scale": 1.12, "x": 0.5, "y": 0.4},
+        {"at": 46.5, "dur": 1.4, "scale": 1.2, "x": 0.5, "y": 0.4}
+      ],
+      "sfx": [
+        {"at": 6.8, "type": "pop"},
+        {"at": 13.5, "type": "boom"},
+        {"at": 19.3, "type": "whoosh"},
+        {"at": 34.5, "type": "boom"},
+        {"at": 42.7, "type": "pop"},
+        {"at": 47.0, "type": "boom", "gain": 0.55}
+      ],
+      "emojis": [
+        {"at": 9.2, "dur": 1.8, "emoji": "🤏"},
+        {"at": 13.5, "dur": 1.4, "emoji": "💀"},
+        {"at": 34.5, "dur": 1.5, "emoji": "😳"},
+        {"at": 42.8, "dur": 1.3, "emoji": "😂"}
+      ],
+      "title": "Eyeballing 27.5 oz of Sour Jacks",
+      "description": "The \"handful and a little sprinkle\" strategy 🤏 Sour Jacks Showdown with Jason The Ween. Who got closest?",
+      "hashtags": ["#SourJacksPartner", "#SourJacks", "#JasonTheWeen", "#gameshow"],
+      "reason": "Two players' pours with live reactions and banter ('Why are you saying that like she won?'). Clean footage after the overlay ends; ends on the last banter line before the next player."
+    }
+  ]
+}

@@ -12,7 +12,7 @@
 - **Ends / deadline:**
 
 ## Rules checklist (copy wording from the campaign page)
-- [ ] **Platforms allowed:** (YouTube Shorts required for us)
+- [ ] **Platforms allowed:** (YouTube Shorts or TikTok required for us; cross-posting allowed?)
 - [ ] **Source footage allowed:** (provided assets? which channels/VODs?)
 - [ ] **Required in title/description:** (tags, @mentions, links)
 - [ ] **Clip length:** min __ s / max __ s

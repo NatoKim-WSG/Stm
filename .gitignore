@@ -2,9 +2,17 @@
 __pycache__/
 *.pyc
 sources/
-work/
 output/
 client_secret*.json
 token*.json
 .env
 .claude/settings.local.json
+
+# work/: keep only each video's clip plan and (hand-fixed) transcript, so another PC can re-render
+work/*
+!work/*/
+work/*/*
+!work/*/clips.json
+!work/*/transcript.json
+!work/*/transcript.txt
+work/_assets/
